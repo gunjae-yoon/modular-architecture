@@ -5,5 +5,6 @@ add_executable(${CMAKE_TARGET_NAME}
 )
 
 target_include_directories(${CMAKE_TARGET_NAME} PRIVATE
+	include
 	src/cpp
 )
