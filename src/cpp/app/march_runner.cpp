@@ -74,6 +74,7 @@ void connect_modules() {
 
 void do_something() {
 	for (std::shared_ptr<Module>& module: modules) {
+		module->initialize();
 		if (module->is_runnable()) {
 			std::static_pointer_cast<RunnableModule>(module)->start();
 		}
