@@ -6,8 +6,6 @@
 
 namespace march {
 	Reverser::Reverser() : Module() {
-		converted_.push_back(std::make_shared<Integers>());
-		converted_.push_back(std::make_shared<Strings>());
 	}
 
 	Reverser::~Reverser() {
@@ -22,11 +20,26 @@ namespace march {
 
 	int64_t Reverser::push(const std::shared_ptr<Data>& data) {
 		if (typeid(*data) == typeid(Integers)) {
-			std::cout << "INTEGERS" << std::endl;
+			std::shared_ptr<Integers> reversed =  std::make_shared<Integers>();
+			const std::shared_ptr<Integers>& typed_data = std::static_pointer_cast<Integers>(data);
+			for (size_t idx = 0; idx < typed_data->values.size(); idx++) {
+				reversed->values.push_back(typed_data->values[typed_data->values.size() - (idx + 1)]);
+			}
+			for (std::shared_ptr<Module>& successor : successors_) {
+				successor->push(reversed);
+			}
 		} else if (typeid(*data) == typeid(Strings)) {
-			std::cout << "STRINGS" << std::endl;
+			std::shared_ptr<Strings> reversed =  std::make_shared<Strings>();
+			const std::shared_ptr<Strings>& typed_data = std::static_pointer_cast<Strings>(data);
+			for (size_t idx = 0; idx < typed_data->values.size(); idx++) {
+				reversed->values.push_back(typed_data->values[typed_data->values.size() - (idx + 1)]);
+			}
+			for (std::shared_ptr<Module>& successor : successors_) {
+				successor->push(reversed);
+			}
 		} else {
 			std::cout << "UNKNOWN" << std::endl;
+			return -1;
 		}
 		return 0;
 	}
