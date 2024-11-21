@@ -23,7 +23,9 @@ void close_modules();
 int32_t main(int32_t argc, char** argv) {
 	std::cout << "modular-architecture version: " << PROJECT_VERSION_DETAIL << std::endl;
 	open_module("libmarch_module_generator.so");
+	open_module("libmarch_module_printer.so");
 	open_module("libmarch_module_reverser.so");
+	open_module("libmarch_module_printer.so");
 	connect_modules();
 	do_something();
 	close_modules();
