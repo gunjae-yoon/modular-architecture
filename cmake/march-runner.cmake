@@ -8,3 +8,11 @@ target_include_directories(${CMAKE_TARGET_NAME} PRIVATE
 	include
 	src/cpp
 )
+
+target_link_libraries(${CMAKE_TARGET_NAME} PRIVATE
+	march
+	dl
+	pthread
+	march_data_strings
+	march_data_integers
+)
